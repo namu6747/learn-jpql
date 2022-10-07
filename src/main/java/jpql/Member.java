@@ -11,10 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@ToString(exclude = "orders")
+@ToString(exclude = {"orders", "team"})
 public class Member {
 
     @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
     @Column(name = "NAME")
     private String username;
@@ -27,6 +28,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
+
     public Member(String username, int age, Team team) {
         this.username = username;
         this.age = age;
@@ -37,6 +41,8 @@ public class Member {
         String str = Sequence.getString();
         int i = Sequence.getInt();
         Member result = new Member(str, i, team);
+        MemberType memberType = i % 2 == 0 ? MemberType.ADMIN : MemberType.USER;
+        result.setType(memberType);
         team.getMembers().add(result);
         return result;
     }

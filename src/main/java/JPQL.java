@@ -18,7 +18,7 @@ public class JPQL {
 
         try {
 
-            // dataInit();
+            dataInit();
             // typedQuery();
             // innerJoin();
             // projection();
@@ -38,8 +38,8 @@ public class JPQL {
 
     private static void paging() {
         List<Member> resultList = em.createQuery("select m from Member m order by m.age desc", Member.class)
-                .setFirstResult(20)
-                .setMaxResults(10)
+                .setFirstResult(5)
+                .setMaxResults(5)
                 .getResultList();
         printList(resultList);
     }
@@ -91,7 +91,7 @@ public class JPQL {
     }
 
     private static void dataInit() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             Team team = Team.getInstance();
             em.persist(team);
 
@@ -115,7 +115,7 @@ public class JPQL {
     }
 
     private static <T extends List> void printList(T obj) {
-        if (obj.get(0) instanceof Object[]) {
+        if (obj.size() > 0 && obj.get(0) instanceof Object[]) {
             for (Object o : obj) {
                 Object[] list = (Object[]) o;
                 if (list.length == 0) {

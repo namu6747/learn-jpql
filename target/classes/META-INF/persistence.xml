@@ -18,8 +18,10 @@
                       value="jdbc:h2:tcp://localhost/~/test"/>
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.H2Dialect"/>
-            <!--
-            <property name="javax.persistence.jdbc.driver"
+            <property name="hibernate.dialect"
+                      value="dialect.MyH2Dialect"/>
+
+           <!-- <property name="javax.persistence.jdbc.driver"
                       value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user"
                       value="spring"/>
@@ -34,12 +36,12 @@
 
 
             <!-- 옵션 -->
-           <!-- <property name="hibernate.show_sql"
+           <property name="hibernate.show_sql"
                       value="true"/>
             <property name="hibernate.format_sql"
                       value="true"/>
             <property name="hibernate.use_sql_comments"
-                      value="true"/>-->
+                      value="true"/>
             <property name="hibernate.hbm2ddl.auto"
                           value="validate" />
         </properties>
