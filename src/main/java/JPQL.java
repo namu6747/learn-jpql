@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-public class JPQL {
+public class JPQL extends BASE{
 
     // alt + shift + insert -> shift up/down, alt + j
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -18,11 +18,10 @@ public class JPQL {
 
         try {
 
-            dataInit();
             // typedQuery();
             // innerJoin();
             // projection();
-            paging();
+            // paging();
 
 
             tx.commit();
@@ -88,65 +87,6 @@ public class JPQL {
         TypedQuery<String> query4 = em.createQuery("select m.username from Member as m", String.class);
 
         Query query100 = em.createQuery("SELECT m.username, m.age from Member m");
-    }
-
-    private static void dataInit() {
-        for (int i = 0; i < 5; i++) {
-            Team team = Team.getInstance();
-            em.persist(team);
-
-            Member member = Member.getInstance(team);
-            em.persist(member);
-
-            Member member2 = Member.getInstance(team);
-            em.persist(member2);
-
-            Product product = Product.getInstance();
-            em.persist(product);
-
-            Order order = Order.getInstance(member, product);
-            em.persist(order);
-            Order order2 = Order.getInstance(member2, product);
-            em.persist(order2);
-        }
-
-        em.flush();
-        em.clear();
-    }
-
-    private static <T extends List> void printList(T obj) {
-        if (obj.size() > 0 && obj.get(0) instanceof Object[]) {
-            for (Object o : obj) {
-                Object[] list = (Object[]) o;
-                if (list.length == 0) {
-                    System.out.println("none");
-                    return;
-                }
-                for (Object object : list) {
-                    System.out.println(object.getClass() + " = " + object);
-                }
-            }
-            return;
-        }
-        if (obj != null && obj.size() > 0) {
-            String clazz = obj.get(0).getClass().getName();
-            System.out.println("===== clazz = " + clazz);
-            for (Object o : obj) {
-                System.out.println(o.getClass() + " = " + o);
-            }
-            System.out.println("===== clazz = " + clazz);
-        }
-        System.out.println();
-    }
-
-    private static <T> void printOne(T obj) {
-        if (obj != null) {
-            String clazz = obj.getClass().getName();
-            System.out.println("===== clazz = " + clazz);
-            System.out.println(obj.getClass() + " = " + obj);
-            System.out.println("===== clazz = " + clazz);
-        }
-        System.out.println();
     }
 
 }

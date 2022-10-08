@@ -1,6 +1,7 @@
 package jpql;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Team {
     private Long id;
     private String name;
 
+    @BatchSize(size = 1)
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
